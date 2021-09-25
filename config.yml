@@ -3,6 +3,7 @@ configuration:
   year: 22
   year_start: 2021-12-20
   increment_length: 13
+  iteration_length: 4
   ip_length: 1
 agile_events:
   - retrospective
