@@ -19,11 +19,12 @@
 #' @export
 generate_calendar <- function(cfg) {
 
+  n_increments <- 52 / increment_length
   res <- tibble::tibble(agile_wk = 1:52) %>%
     dplyr::mutate(dstamp = lubridate::ymd(cfg$year_start) + lubridate::weeks(0:51),
                   calendar_wk = lubridate::isoweek(dstamp),
-                  increment = gl(52 / cfg$increment_length, cfg$increment_length,
-                                 labels = paste0('PI ', cfg$year, '.', 1:4)))
+                  increment = gl(n_increments, cfg$increment_length,
+                                 labels = paste0('PI ', cfg$year, '.', 1:4)),
 
   return(res)
 }
