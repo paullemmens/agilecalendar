@@ -1,0 +1,13 @@
+configuration:
+  project: de4ph
+  year: 22
+  year_start: 2021-12-20
+  increment_length: 13
+  ip_length: 1
+agile_events:
+  - retrospective
+  - vsrr
+  - pirr
+markers:
+  - prepare thingie:
+      - 2021-12-22

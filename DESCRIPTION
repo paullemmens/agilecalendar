@@ -1,0 +1,16 @@
+Package: agilecalendar
+Title: Create and Visualize an Agile Cadence Calendar
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Paul",
+           family = "Lemmens",
+           role = c("aut", "cre"),
+           email = "paul.lemmens@philips.com")
+Description: The agilecalendar package provides a Shiny app to visualize
+    an (SAFe) Agile cadence calendar on which various events can be plotted
+    using a YAML configuration file.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
