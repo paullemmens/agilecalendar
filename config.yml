@@ -12,3 +12,5 @@ agile_events:
 markers:
   - prepare thingie:
       - 2021-12-22
+  - deadline for VSRR:
+      - 2022-03-11
