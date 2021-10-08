@@ -21,17 +21,18 @@ generate_calendar <- function(cfg) {
   res <- tibble::tibble(agile_wk = 1:52) %>%
     dplyr::mutate(dstamp = lubridate::ymd(cfg$year_start) + lubridate::weeks(0:51),
                   calendar_wk = lubridate::isoweek(dstamp),
-                  increment = rep_len(rep.int(seq_len(n_increments),
+                  increment_wk = rep(1:cfg$increment_length, n_increments),
+                  increment_no = rep_len(rep.int(seq_len(n_increments),
                                               rep.int(cfg$increment_length,
                                                       n_increments)),
                                       52),
-                  iteration = rep(c(rep.int(seq_len(n_iterations),
+                  iteration_no = rep(c('ip',
+                                    rep.int(seq_len(n_iterations),
                                             rep.int(cfg$iteration_length,
-                                                    n_iterations)),
-                                    'ip'),
+                                                    n_iterations))),
                                   n_increments)) %>%
-    dplyr::mutate(increment = paste0('PI ', cfg$year, '.', increment),
-                  iteration = paste0(increment, '.', iteration))
+    dplyr::mutate(increment = paste0('PI ', cfg$year, '.', increment_no),
+                  iteration = paste0(increment, '.', iteration_no))
 
   return(res)
 }
