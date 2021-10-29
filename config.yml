@@ -5,12 +5,26 @@ configuration:
   increment_length: 13
   iteration_length: 4
   ip_length: 1
+
 agile_events:
-  - retrospective
-  - vsrr
-  - pirr
+  retrospective:
+      - 2022-02-28
+      - 2022-05-28
+      - 2022-08-28
+      - 2022-11-28
+  vsrr:
+      - 2022-03-01
+      - 2022-06-01
+      - 2022-09-01
+      - 2022-12-01
+  pirr:
+      - 2022-03-12
+      - 2022-06-12
+      - 2022-09-12
+      - 2022-12-12
+      
 markers:
-  - prepare thingie:
+  prepare thingie:
       - 2021-12-22
-  - deadline for VSRR:
+  one off:
       - 2022-03-11
