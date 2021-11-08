@@ -1,0 +1,33 @@
+---
+title: Agile Cadence Calendar
+output:
+  flexdashboard::flex_dashboard:
+    vertical_scroll: fill
+    dev: svg
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.asp = 0.618)
+require(tidyverse)
+require(flexdashboard)
+```
+
+Sidebar {.sidebar data-width=300}
+=====================================
+
+Viewer
+========
+
+Viewer {.tabset}
+----------------
+
+### Visual
+
+### Calendar
+
+Configuration
+=============
+
+Configuration
+-----------------
