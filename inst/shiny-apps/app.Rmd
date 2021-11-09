@@ -48,3 +48,22 @@ Configuration
 
 Configuration
 -----------------
+
+```{r show configuration}
+cfg_txt <- reactive({
+  req(cfg_file)
+  d <- readLines(con = cfg_file)
+  splitted <- stringi::stri_split(str = d, regex = '\\n')
+  newtxt <- lapply(splitted, p)
+  return(newtxt)
+})
+cfg <- reactive({
+  req(cfg_file)
+  read_config(cfg_file)
+})
+## renderPrint({
+##   cfg_txt()
+## })
+renderTable(cfg()$markers)
+renderTable(cfg()$agile_events)
+```
