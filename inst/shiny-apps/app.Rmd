@@ -11,6 +11,7 @@ runtime: shiny
 knitr::opts_chunk$set(fig.asp = 0.618)
 require(tidyverse)
 require(flexdashboard)
+devtools::load_all()
 ```
 
 Sidebar {.sidebar data-width=300}
