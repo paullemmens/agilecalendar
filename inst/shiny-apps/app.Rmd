@@ -19,10 +19,27 @@ Sidebar {.sidebar data-width=300}
 Viewer
 ========
 
+```{r load configuration}
+cfg_file <- pkgload::package_file('inst', 'default_config.yml')
+cfg <- reactive({
+  req(cfg_file)
+  read_config(cfg_file)
+})
+acc <- reactive({
+  generate_calendar(cfg = cfg()$configuration)
+})
+```
+
 Viewer {.tabset}
 ----------------
 
 ### Visual
+
+```{r visual-calendar}
+renderPlot(
+  plot_calendar(acc())
+)
+```
 
 ### Calendar
 
