@@ -65,6 +65,7 @@ cfg <- reactive({
 ## renderPrint({
 ##   cfg_txt()
 ## })
+renderTable(acc())
 renderTable(cfg()$markers)
 renderTable(cfg()$agile_events)
 ```
