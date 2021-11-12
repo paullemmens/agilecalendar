@@ -38,5 +38,14 @@ generate_calendar <- function(cfg) {
     dplyr::mutate(increment = paste0('PI ', .cfg$year, '.', increment_no),
                   iteration = paste0(increment, '.', iteration_no))
 
+  ## Add deadlines around agile cadence.
+  res <- cfg$agile_events %>%
+    dplyr::mutate(calendar_wk = lubridate::isoweek(dstamp)) %>%
+    dplyr::select(-dstamp) %>%
+    dplyr::right_join(y = res, by = 'calendar_wk') %>%
+    dplyr::rename(cadence_markers = event)
+
+  ## Add other markers
+
   return(res)
 }
