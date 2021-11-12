@@ -27,7 +27,7 @@ cfg <- reactive({
   read_config(cfg_file)
 })
 acc <- reactive({
-  generate_calendar(cfg = cfg()$configuration)
+  generate_calendar(cfg = cfg())
 })
 ```
 
