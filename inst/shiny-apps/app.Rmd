@@ -11,6 +11,7 @@ runtime: shiny
 knitr::opts_chunk$set(fig.asp = 0.618)
 require(tidyverse)
 require(flexdashboard)
+require(ggrepel)
 devtools::load_all()
 ```
 
