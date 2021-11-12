@@ -45,3 +45,16 @@ plot_calendar <- function(cal) {
         axis.ticks.y     = ggplot2::element_blank()
       )
 }
+#' @title Draw Marker For Today
+#'
+#' @description Adds a marker to indicate today's date in the agile
+#'    calender visualization.
+#'
+#' @return A list with a ggplot2 geom_vline geom that can be added to an
+#'    existing ggplot object.
+#'
+today_marker <- function() {
+  list(ggplot2::geom_vline(data = tibble::tibble(dstamp = lubridate::as_date(Sys.time())),
+                           mapping = ggplot2::aes(xintercept = dstamp),
+                           color = 'red', size = 2.0))
+}
