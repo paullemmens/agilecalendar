@@ -19,19 +19,6 @@ plot_calendar <- function(cal) {
       ggplot2::facet_wrap(~ increment, scales = 'free_x', ncol = 1) +
       ggplot2::scale_x_date(date_breaks = '1 week', date_labels = '%V') +
       ggplot2::labs(x = 'Week number', y = '', colour = 'Iteration') +
-      ggplot2::geom_vline(data = cal %>% filter(!is.na(cadence_markers)),
-                          mapping = ggplot2::aes(xintercept = dstamp),
-                          color = 'darkslateblue',
-                          size = 2.0) +
-      ggrepel::geom_label_repel(mapping           = aes(label = cadence_markers),
-                                colour            = 'darkslateblue',
-                                nudge_x           = 0.15,
-                                nudge_y           = 1,
-                                box.padding       = 0.5,
-                                segment.curvature = -0.1,
-                                segment.ncp       = 3,
-                                segment.angle     = 20,
-                                max.overlaps      = Inf) +
       ggplot2::theme_minimal() +
       ggplot2::theme(
         legend.position  = 'bottom',
@@ -45,6 +32,32 @@ plot_calendar <- function(cal) {
         axis.ticks.y     = ggplot2::element_blank()
       )
 }
+
+#' @title Mark Agile Cadence Related Events
+#'
+#' @description Add markers to the calendar for a set of predefined
+#'    markers related to events in the agile cadence.
+#'
+#' @return A list of ggplot2 geoms for drawing markers and adding labels
+#'    using ggrepel.
+#'
+cadence_markers <- function(cal) {
+  list(ggplot2::geom_vline(data    = cal %>% dplyr::filter(!is.na(cadence_markers)),
+                           mapping = ggplot2::aes(xintercept = dstamp),
+                           color   = 'darkslateblue',
+                           size    = 2.0),
+       ggrepel::geom_label_repel(mapping           = aes(label = cadence_markers),
+                                 colour            = 'darkslateblue',
+                                 nudge_x           = 0.15,
+                                 nudge_y           = 1,
+                                 box.padding       = 0.5,
+                                 segment.curvature = -0.1,
+                                 segment.ncp       = 3,
+                                 segment.angle     = 20,
+                                 max.overlaps      = Inf)
+      )
+}
+
 #' @title Draw Marker For Today
 #'
 #' @description Adds a marker to indicate today's date in the agile
