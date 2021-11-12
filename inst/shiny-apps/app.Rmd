@@ -18,6 +18,15 @@ devtools::load_all()
 Sidebar {.sidebar data-width=300}
 =====================================
 
+### Plot setup
+
+```{r marker check boxes}
+checkboxInput('cadence_markers', 'Plot cadence markers', value = TRUE)
+checkboxInput('personal_markers', 'Plot personal markers', value = TRUE)
+checkboxInput('today', 'Plot today marker', value = TRUE)
+```
+
+
 Viewer
 ========
 
