@@ -31,13 +31,13 @@ generate_calendar <- function(cfg) {
                                                          n_increments)),
                                          52),
                   iteration_no = rep(c('ip',
-    dplyr::mutate(increment = paste0('PI ', .cfg$year, '.', increment_no),
-                  iteration = paste0(increment, '.', iteration_no)) %>%
-    dplyr::mutate(iteration = factor(iteration, levels = c('ip', 1, 2, 3)))
                                      rep.int(seq_len(n_iterations),
                                              rep.int(.cfg$iteration_length,
                                                      n_iterations))),
                                      n_increments)) %>%
+    dplyr::mutate(increment    = paste0('PI ', .cfg$year, '.', increment_no),
+                  iteration    = paste0(increment, '.', iteration_no)) %>%
+    dplyr::mutate(iteration_no = factor(iteration_no, levels = c('ip', 1, 2, 3)))
 
   ## Construct temp. calendar with events and markers.
   tmp <- tibble::tibble(dstamp = lubridate::ymd(.cfg$year_start) + lubridate::weeks(0:51))
