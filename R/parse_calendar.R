@@ -23,21 +23,21 @@ generate_calendar <- function(cfg) {
 
   ## Construct basic calendar.
   res <- tibble::tibble(agile_wk = 1:52) %>%
-    dplyr::mutate(dstamp = lubridate::ymd(.cfg$year_start) + lubridate::weeks(0:51),
-                  calendar_wk = lubridate::isoweek(dstamp),
+    dplyr::mutate(dstamp       = lubridate::ymd(.cfg$year_start) + lubridate::weeks(0:51),
+                  calendar_wk  = lubridate::isoweek(dstamp),
                   increment_wk = rep(1:.cfg$increment_length, n_increments),
                   increment_no = rep_len(rep.int(seq_len(n_increments),
-                                              rep.int(.cfg$increment_length,
-                                                      n_increments)),
-                                      52),
+                                                 rep.int(.cfg$increment_length,
+                                                         n_increments)),
+                                         52),
                   iteration_no = rep(c('ip',
-                                    rep.int(seq_len(n_iterations),
-                                            rep.int(.cfg$iteration_length,
-                                                    n_iterations))),
-                                  n_increments)) %>%
     dplyr::mutate(increment = paste0('PI ', .cfg$year, '.', increment_no),
                   iteration = paste0(increment, '.', iteration_no)) %>%
     dplyr::mutate(iteration = factor(iteration, levels = c('ip', 1, 2, 3)))
+                                     rep.int(seq_len(n_iterations),
+                                             rep.int(.cfg$iteration_length,
+                                                     n_iterations))),
+                                     n_increments)) %>%
 
   ## Construct temp. calendar with events and markers.
   tmp <- tibble::tibble(dstamp = lubridate::ymd(.cfg$year_start) + lubridate::weeks(0:51))
