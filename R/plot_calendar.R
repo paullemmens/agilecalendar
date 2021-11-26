@@ -14,16 +14,16 @@
 plot_calendar <- function(cal) {
   ## FIXME presumes cal is correctly formatted.
   cal %>%
-    ggplot2::ggplot(aes(x = dstamp, colour = forcats::as_factor(iteration_no), y = 1)) +
-      ggplot2::geom_line(aes(group = 1), size = 6) +
+    ggplot2::ggplot(ggplot2::aes(x = dstamp, colour = forcats::as_factor(iteration_no), y = 1)) +
+      ggplot2::geom_line(ggplot2::aes(group = 1), size = 6) +
       ggplot2::facet_wrap(~ increment, scales = 'free_x', ncol = 1) +
       ggplot2::scale_x_date(date_breaks = '1 week', date_labels = '%V') +
       ggplot2::labs(x = 'Week number', y = '', colour = 'Iteration') +
-      ggplot2::geom_vline(data = cal %>% filter(!is.na(cadence_markers)),
+      ggplot2::geom_vline(data = cal %>% dplyr::filter(!is.na(event)),
                           mapping = ggplot2::aes(xintercept = dstamp),
                           color = 'darkslateblue',
                           size = 2.0) +
-      ggrepel::geom_label_repel(mapping           = aes(label = cadence_markers),
+      ggrepel::geom_label_repel(mapping           = ggplot2::aes(label = event),
                                 colour            = 'darkslateblue',
                                 nudge_x           = 0.15,
                                 nudge_y           = 1,
@@ -39,7 +39,7 @@ plot_calendar <- function(cal) {
         axis.title.x     = ggplot2::element_text(vjust   = -0.2),
         plot.caption     = ggplot2::element_text(size    = 11 * 0.8),
         strip.background = ggplot2::element_rect(colour =  NA, fill =  NA),
-        strip.text       = ggplot2::element_text(size   =  rel(1.1)),
+        strip.text       = ggplot2::element_text(size   =  ggplot2::rel(1.1)),
         panel.grid       = ggplot2::element_blank(),
         axis.text.y      = ggplot2::element_blank(),
         axis.ticks.y     = ggplot2::element_blank()
