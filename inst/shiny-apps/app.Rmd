@@ -47,9 +47,14 @@ Viewer {.tabset}
 ### Visual
 
 ```{r visual-calendar}
-renderPlot(
-  plot_calendar(acc())
-)
+
+renderPlot({
+  p <- plot_calendar(cal = acc())
+  if (input$cadence_markers) p <- p + cadence_markers(cal = acc())
+  if (input$today) p <- p + today_marker()
+  return(p)
+})
+
 ```
 
 ### Calendar
