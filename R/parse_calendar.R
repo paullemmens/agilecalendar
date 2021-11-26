@@ -36,16 +36,17 @@ generate_calendar <- function(cfg) {
                                                     n_iterations))),
                                   n_increments)) %>%
     dplyr::mutate(increment = paste0('PI ', .cfg$year, '.', increment_no),
-                  iteration = paste0(increment, '.', iteration_no))
+                  iteration = paste0(increment, '.', iteration_no)) %>%
+    dplyr::mutate(iteration = factor(iteration, levels = c('ip', 1, 2, 3)))
 
-  ## Add deadlines around agile cadence.
-  res <- cfg$agile_events %>%
+  ## Construct temp. calendar with events and markers.
+  tmp <- tibble::tibble(dstamp = lubridate::ymd(.cfg$year_start) + lubridate::weeks(0:51))
+  tmp <- dplyr::bind_rows(tmp, cfg$agile_events, cfg$markers) %>%
     dplyr::mutate(calendar_wk = lubridate::isoweek(dstamp)) %>%
-    dplyr::select(-dstamp) %>%
-    dplyr::right_join(y = res, by = 'calendar_wk') %>%
-    dplyr::rename(cadence_markers = event)
+    dplyr::select(-dstamp)
 
-  ## Add other markers
+  ## Join markers and events into main calendar
+  cal <- dplyr::full_join(x = res, y = tmp, by = 'calendar_wk')
 
-  return(res)
+  return(cal)
 }
