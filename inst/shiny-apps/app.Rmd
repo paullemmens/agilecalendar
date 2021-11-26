@@ -47,14 +47,13 @@ Viewer {.tabset}
 ### Visual
 
 ```{r visual-calendar}
-
 renderPlot({
   p <- plot_calendar(cal = acc())
-  if (input$cadence_markers) p <- p + cadence_markers(cal = acc())
+  if (input$cadence_markers) p <- p + plot_markers(cal = acc(), markers = 'agile_events')
+  if (input$personal_markers) p <- p + plot_markers(cal = acc(), markers = 'markers')
   if (input$today) p <- p + today_marker()
   return(p)
 })
-
 ```
 
 ### Calendar

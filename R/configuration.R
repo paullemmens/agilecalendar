@@ -11,8 +11,11 @@
 #' @importFrom dplyr "%>%"
 #'
 parse_agile_events <- function(event_list) {
+  d <- stringr::str_sub(deparse(substitute(event_list)), 5, -1)
+
   purrr::map2_dfr(event_list, names(event_list),
-                  ~ tibble::tibble(event = .y, dstamp = .x)) %>%
+                  ~ tibble::tibble(event = .y, dstamp = .x,
+                                   type = d)) %>%
     dplyr::mutate(dstamp = lubridate::ymd(dstamp))
 }
 
