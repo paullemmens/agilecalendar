@@ -11,10 +11,9 @@
 #' @importFrom dplyr "%>%"
 #'
 parse_agile_events <- function(event_list) {
-  tibble::as_tibble(event_list) %>%
-    tidyr::pivot_longer(cols = tidyr::everything(),
-                        names_to = 'event',
-                        values_to = 'dstamp')
+  purrr::map2_dfr(event_list, names(event_list),
+                  ~ tibble::tibble(event = .y, dstamp = .x)) %>%
+    dplyr::mutate(dstamp = lubridate::ymd(dstamp))
 }
 
 #' @title Load Configuration File
