@@ -58,6 +58,7 @@ renderPlot({
 
 ### Calendar
 
+
 Configuration
 =============
 
@@ -83,4 +84,12 @@ textAreaInput('config', label = NULL, width = '100%', rows = 15,
 Row {data-height=100}
 ----------------------
 
+Buttons: upload / load package default, save
+
+```{r upload file}
+fileInput('cfg_upload', label = NULL, accept = c('yml', 'yaml'))
+```
+
+```{r load default file}
+cfg_file <- pkgload::package_file('inst/default_config.yml')
 ```
