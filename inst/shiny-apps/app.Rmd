@@ -68,10 +68,8 @@ Configuration {data-height=900}
 ```{r show configuration}
 cfg_txt <- reactive({
   req(cfg_file)
-  d <- readLines(con = cfg_file)
-  splitted <- stringi::stri_split(str = d, regex = '\\n')
-  newtxt <- lapply(splitted, p)
-  return(newtxt)
+  d <- readLines(con = cfg_file, collapse = '\n')
+  return(d)
 })
 cfg <- reactive({
   req(cfg_file)
