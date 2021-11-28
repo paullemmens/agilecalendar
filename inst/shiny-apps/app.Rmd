@@ -61,8 +61,8 @@ renderPlot({
 Configuration
 =============
 
-Configuration
------------------
+Configuration {data-height=900}
+--------------------------------
 
 ```{r show configuration}
 cfg_txt <- reactive({
@@ -82,4 +82,7 @@ cfg <- reactive({
 renderTable(acc())
 renderTable(cfg()$markers)
 renderTable(cfg()$agile_events)
+Row {data-height=100}
+----------------------
+
 ```
