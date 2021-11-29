@@ -76,8 +76,12 @@ cfg <- reactive({
   req(cfg_file)
   read_config(cfg_file)
 })
-textAreaInput('config', label = NULL, width = '100%', rows = 15,
+textAreaInput('config', label = NULL, width = '100%', rows = 20,
               placeholder = 'Enter or load configuration YAML')
+observeEvent(input$load_default, {
+  cfg_file <- pkgload::package_file('inst/default_config.yml')
+  updateTextAreaInput(session, 'config', value = cfg_txt())
+})
 ```
 
 Buttons {data-height=100}
@@ -85,8 +89,12 @@ Buttons {data-height=100}
 
 ```{r upload file}
 fileInput('cfg_upload', label = NULL, accept = c('yml', 'yaml'))
+observeEvent(input$cfg_upload, {
+  cfg_raw <- paste(readLines(input$cfg_upload$datapath), collapse = '\n')
+  updateTextAreaInput(session, 'config', value = cfg_raw)
+})
 ```
 
 ```{r load default file}
-cfg_file <- pkgload::package_file('inst/default_config.yml')
+actionButton('load_default', 'Load package default configuration')
 ```
