@@ -49,6 +49,7 @@ Viewer {.tabset}
 
 ```{r visual-calendar}
 renderPlot({
+  req(acc())
   p <- plot_calendar(cal = acc())
   if (input$cadence_markers) p <- p + plot_markers(cal = acc(), markers = 'agile_events')
   if (input$personal_markers) p <- p + plot_markers(cal = acc(), markers = 'markers')
