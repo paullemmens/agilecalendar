@@ -69,7 +69,7 @@ Configuration {data-height=900}
 ```{r show configuration}
 cfg_txt <- reactive({
   req(cfg_file)
-  d <- readLines(con = cfg_file, collapse = '\n')
+  d <- paste(readLines(con = cfg_file), collapse = '\n')
   return(d)
 })
 cfg <- reactive({
