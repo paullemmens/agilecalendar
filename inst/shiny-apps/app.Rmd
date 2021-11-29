@@ -2,7 +2,8 @@
 title: Agile Cadence Calendar
 output:
   flexdashboard::flex_dashboard:
-    vertical_scroll: fill
+    orientation: rows
+    vertical_layout: fill
     dev: svg
 runtime: shiny
 ---
@@ -79,10 +80,8 @@ textAreaInput('config', label = NULL, width = '100%', rows = 15,
               placeholder = 'Enter or load configuration YAML')
 ```
 
-Row {data-height=100}
-----------------------
-
-Buttons: upload / load package default, save
+Buttons {data-height=100}
+-------------------------
 
 ```{r upload file}
 fileInput('cfg_upload', label = NULL, accept = c('yml', 'yaml'))
