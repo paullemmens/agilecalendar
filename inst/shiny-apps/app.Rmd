@@ -89,13 +89,27 @@ Buttons {data-height=100}
 -------------------------
 
 ```{r upload file}
-fileInput('cfg_upload', label = NULL, accept = c('yml', 'yaml'))
+fluidRow(
+  ## column(width = 12,
+  ##        splitLayout(cellWidths = c('30%', '20%', '20%', '10%'),
+  ##                    fileInput('cfg_upload', label = NULL, accept = c('yml', 'yaml')),
+  ##                    actionButton('load_default', 'Load package default configuration'),
+  ##                    actionButton('export', 'Export config to disk')
+  ##                    )
+  ##        )
+  column(width = 5,
+         fileInput('cfg_upload', label = NULL, accept = c('yml', 'yaml'))),
+  column(width = 5,
+         actionButton('load_default', 'Load default configuration')),
+ )
+fluidRow(
+  column(width = 5,
+         actionButton('activate', 'Use new values')),
+  column(width = 5,
+         actionButton('export', 'Export config to disk'))
+)
 observeEvent(input$cfg_upload, {
   cfg_raw <- paste(readLines(input$cfg_upload$datapath), collapse = '\n')
   updateTextAreaInput(session, 'config', value = cfg_raw)
 })
-```
-
-```{r load default file}
-actionButton('load_default', 'Load package default configuration')
 ```
