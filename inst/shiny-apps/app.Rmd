@@ -99,10 +99,16 @@ fluidRow(
   column(width = 5,
          actionButton('activate', 'Use new values')),
   column(width = 5,
-         actionButton('export', 'Export config to disk'))
+         downloadButton('export', 'Export configuration'))
 )
 observeEvent(input$cfg_upload, {
   cfg_raw <- paste(readLines(input$cfg_upload$datapath), collapse = '\n')
   updateTextAreaInput(session, 'config', value = cfg_raw)
 })
+output$export <- downloadHandler(
+  filename = 'agile_configuration.yml',
+  content = function(f) {
+    yaml::write_yaml(input$config, file = f)
+  }
+)
 ```
