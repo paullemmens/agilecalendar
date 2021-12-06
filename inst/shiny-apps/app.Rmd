@@ -61,6 +61,7 @@ renderPlot({
 
 ### Calendar
 
+Not implemented yet.
 
 Configuration
 =============
@@ -77,6 +78,13 @@ observeEvent(input$load_default, {
   updateTextAreaInput(session, 'config', value = paste(d, collapse = '\n'))
 })
 ```
+
+Note {data-height=100}
+-------------------------
+
+Note that the YAML configuration needs to have the appropriate indentation which is difficult to maintain with
+a proportional font. The advised way of working is to load the default configuration, save it to disk and edit
+in an appropriate text editor, to then upload for minimal adjustments here.
 
 Buttons {data-height=100}
 -------------------------
