@@ -83,13 +83,6 @@ Buttons {data-height=100}
 
 ```{r upload file}
 fluidRow(
-  ## column(width = 12,
-  ##        splitLayout(cellWidths = c('30%', '20%', '20%', '10%'),
-  ##                    fileInput('cfg_upload', label = NULL, accept = c('yml', 'yaml')),
-  ##                    actionButton('load_default', 'Load package default configuration'),
-  ##                    actionButton('export', 'Export config to disk')
-  ##                    )
-  ##        )
   column(width = 5,
          fileInput('cfg_upload', label = NULL, accept = c('yml', 'yaml'))),
   column(width = 5,
