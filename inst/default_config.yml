@@ -24,7 +24,15 @@ agile_events:
       - 2022-12-12
       
 markers:
-  prepare thingie:
-      - 2021-12-22
+  RTE - speakers for vision:
+      - 2022-01-07
+      - 2022-04-02
+      - 2022-07-01
+      - 2022-10-02
+  SM - plan next increment:
+      - 2022-01-15
+      - 2022-03-25
+      - 2022-06-25
+      - 2022-09-25
   one off:
       - 2022-03-11

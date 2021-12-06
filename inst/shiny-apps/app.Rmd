@@ -1,0 +1,115 @@
+---
+title: Agile Cadence Calendar
+output:
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: fill
+    dev: svg
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.asp = 0.618)
+require(tidyverse)
+require(flexdashboard)
+require(ggrepel)
+devtools::load_all()
+```
+
+Sidebar {.sidebar data-width=300}
+=====================================
+
+### Plot setup
+
+```{r marker check boxes}
+checkboxInput('cadence_markers', 'Plot cadence markers', value = TRUE)
+checkboxInput('personal_markers', 'Plot personal markers', value = TRUE)
+checkboxInput('today', 'Plot today marker', value = TRUE)
+```
+
+
+Viewer
+========
+
+```{r load configuration}
+cfg <- eventReactive(c(input$load_default, input$activate), {
+  req(input$config)
+  read_config(cfg_content = input$config)
+})
+acc <- reactive({
+  req(cfg())
+
+  generate_calendar(cfg = cfg())
+})
+```
+
+Viewer {.tabset}
+----------------
+
+### Visual
+
+```{r visual-calendar}
+renderPlot({
+  req(acc())
+  p <- plot_calendar(cal = acc())
+  if (input$cadence_markers) p <- p + plot_markers(cal = acc(), markers = 'agile_events')
+  if (input$personal_markers) p <- p + plot_markers(cal = acc(), markers = 'markers')
+  if (input$today) p <- p + today_marker()
+  return(p)
+})
+```
+
+### Calendar
+
+Not implemented yet.
+
+Configuration
+=============
+
+Configuration {data-height=900}
+--------------------------------
+
+```{r show configuration}
+textAreaInput('config', label = NULL, width = '100%', rows = 20,
+              placeholder = 'Enter or load configuration YAML')
+observeEvent(input$load_default, {
+  cfg_file <- pkgload::package_file('inst/default_config.yml')
+  d <- readLines(con = cfg_file)
+  updateTextAreaInput(session, 'config', value = paste(d, collapse = '\n'))
+})
+```
+
+Note {data-height=100}
+-------------------------
+
+Note that the YAML configuration needs to have the appropriate indentation which is difficult to maintain with
+a proportional font. The advised way of working is to load the default configuration, save it to disk and edit
+in an appropriate text editor, to then upload for minimal adjustments here.
+
+Buttons {data-height=100}
+-------------------------
+
+```{r upload file}
+fluidRow(
+  column(width = 5,
+         fileInput('cfg_upload', label = NULL, accept = c('yml', 'yaml'))),
+  column(width = 5,
+         actionButton('load_default', 'Load default configuration')),
+ )
+fluidRow(
+  column(width = 5,
+         actionButton('activate', 'Use new values')),
+  column(width = 5,
+         downloadButton('export', 'Export configuration'))
+)
+observeEvent(input$cfg_upload, {
+  cfg_raw <- paste(readLines(input$cfg_upload$datapath), collapse = '\n')
+  updateTextAreaInput(session, 'config', value = cfg_raw)
+})
+output$export <- downloadHandler(
+  filename = 'agile_configuration.yml',
+  content = function(f) {
+    yaml::write_yaml(input$config, file = f)
+  }
+)
+```
