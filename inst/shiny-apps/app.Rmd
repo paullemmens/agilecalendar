@@ -32,12 +32,13 @@ Viewer
 ========
 
 ```{r load configuration}
-cfg_file <- pkgload::package_file('inst', 'default_config.yml')
-cfg <- reactive({
-  req(cfg_file)
-  read_config(cfg_file)
+cfg <- eventReactive(c(input$load_default, input$activate), {
+  req(input$config)
+  read_config(cfg_content = input$config)
 })
 acc <- reactive({
+  req(cfg())
+
   generate_calendar(cfg = cfg())
 })
 ```
@@ -68,20 +69,12 @@ Configuration {data-height=900}
 --------------------------------
 
 ```{r show configuration}
-cfg_txt <- reactive({
-  req(cfg_file)
-  d <- paste(readLines(con = cfg_file), collapse = '\n')
-  return(d)
-})
-cfg <- reactive({
-  req(cfg_file)
-  read_config(cfg_file)
-})
 textAreaInput('config', label = NULL, width = '100%', rows = 20,
               placeholder = 'Enter or load configuration YAML')
 observeEvent(input$load_default, {
   cfg_file <- pkgload::package_file('inst/default_config.yml')
-  updateTextAreaInput(session, 'config', value = cfg_txt())
+  d <- readLines(con = cfg_file)
+  updateTextAreaInput(session, 'config', value = paste(d, collapse = '\n'))
 })
 ```
 
