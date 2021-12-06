@@ -46,8 +46,8 @@ regarding which events they (should) cover, except perhaps the color in which th
 
 # Todo
 
-[ ] Make agile events simpler by enabling referring to agile weeks, so they repeate automatically.
-[ ] Add calendar view on the agile calendar.
+- [ ] Make agile events simpler by enabling referring to agile weeks, so they repeate automatically.
+- [ ] Add calendar view on the agile calendar.
 
 # Help
 
