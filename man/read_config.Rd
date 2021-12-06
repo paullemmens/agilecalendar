@@ -4,10 +4,15 @@
 \alias{read_config}
 \title{Load Configuration File}
 \usage{
-read_config(cfgfile)
+read_config(cfgfile = NULL, cfg_content = NULL)
 }
 \arguments{
 \item{cfgfile}{A path to a configuration file.}
+
+\item{cfg_content}{A string that contains the actual content of the
+calendar configuration. This is mostly to support the dashboard.
+Defaults to NULL and overrides \code{cfgfile} if both are specified
+simultaneously.}
 }
 \description{
 Load the configuration file for the generator.
