@@ -34,5 +34,21 @@ markers:
       - 2022-03-25
       - 2022-06-25
       - 2022-09-25
+  SM - complete PIRR:
+      - 2022-03-01
+  SM - update team + certs:
+      - 2021-12-23
+      - 2022-03-23
+      - 2022-09-23
+      - 2022-09-23
+      - 2022-12-20
+  SM - check kpi dashboard:
+      - 2022-02-25
+  RTE - business objectives:
+      - 2021-12-21
+  SM - plan next retro:
+      - 2022-01-15
+  SM - VSRR after retro:
+      - 2022-02-01
   one off:
       - 2022-03-11
