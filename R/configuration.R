@@ -47,3 +47,25 @@ read_config <- function(cfgfile = NULL, cfg_content = NULL) {
 
   return(cfg)
 }
+
+
+#' @title Copy Default Configuration
+#'
+#' @description Make a copy of the default configuration to a location
+#'    outside of the package.
+#'
+#' @param path Path where to store the copy.
+#'
+#' @return Invisibly, checking whether copying was successful.
+#'
+#' @export
+copy_default_config <- function(path) {
+
+  val <- file.copy(from = pkgload::package_file('inst/default_config.yml'),
+                   to = path,
+                   copy.mode = FALSE)
+
+  if (!any(val)) stop('Unable to create copy')
+
+  return(invisible())
+}
