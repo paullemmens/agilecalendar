@@ -46,7 +46,7 @@ generate_calendar <- function(cfg) {
                      by = 'calendar_wk')
 
   ## Join markers and events into main calendar
-  cal <- dplyr::full_join(x = res, y = tmp, by = 'calendar_wk')
+  cal <- dplyr::bind_rows(x = res, y = tmp)
 
   return(cal)
 }
