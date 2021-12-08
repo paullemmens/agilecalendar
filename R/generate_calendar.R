@@ -40,10 +40,10 @@ generate_calendar <- function(cfg) {
     dplyr::mutate(iteration_no = factor(iteration_no, levels = c('ip', 1, 2, 3)))
 
   ## Construct temp. calendar with events and markers.
-  tmp <- tibble::tibble(dstamp = lubridate::ymd(.cfg$year_start) + lubridate::weeks(0:51))
-  tmp <- dplyr::bind_rows(tmp, cfg$agile_events, cfg$markers) %>%
+  tmp <- dplyr::bind_rows(cfg$agile_events, cfg$markers) %>%
     dplyr::mutate(calendar_wk = lubridate::isoweek(dstamp)) %>%
-    dplyr::select(-dstamp)
+    dplyr::left_join(y = res %>% dplyr::select(-dstamp),
+                     by = 'calendar_wk')
 
   ## Join markers and events into main calendar
   cal <- dplyr::full_join(x = res, y = tmp, by = 'calendar_wk')
