@@ -37,7 +37,10 @@ generate_calendar <- function(cfg) {
                                      n_increments)) %>%
     dplyr::mutate(increment    = paste0('PI ', .cfg$year, '.', increment_no),
                   iteration    = paste0(increment, '.', iteration_no)) %>%
-    dplyr::mutate(iteration_no = factor(iteration_no, levels = c('ip', 1, 2, 3)))
+    dplyr::mutate(iteration_no = factor(iteration_no, levels = c('ip', 1, 2, 3))) %>%
+    dplyr::group_by(increment) %>%
+      dplyr::mutate(iteration_wk = c(0, rep(1:.cfg$iteration_length, n_iterations))) %>%
+    dplyr::ungroup()
 
   ## Construct temp. calendar with events and markers.
   tmp <- dplyr::bind_rows(cfg$agile_events, cfg$markers) %>%
