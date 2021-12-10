@@ -69,3 +69,48 @@ copy_default_config <- function(path) {
 
   return(invisible())
 }
+
+
+#' @title Agile Calendar Configuration
+#'
+#' @description The Agile calendar is defined and constructed using the
+#'    values inside the configuration YAML. A personal copy can be made
+#'    using the [`copy_default_config()`] function.
+#'
+#' @format
+#'
+#' The YAML (file) with the configuration and markers comprises
+#' three sections: `configuration`, `agile_events`, and `markers` of
+#' which the latter two have a somewhat interchangeable role.
+#'
+#' `configuration` should have the following items below it (without
+#' deeper hierarchies).
+#'
+#' \describe{
+#'   \item{`project`}{A simple label to mark the name of a project or
+#'     something else that might be relevant to display. Currently
+#'     used more as mnemonic that actually used in the calendar.}
+#'   \item{`year`}{Simple number that is used to prefix the descriptive
+#'     labels for the increments and iterations (e.g. PI 22.x.y and
+#'     22 here then is the value for `year`.}
+#'   \item{`year_start`}{Date of the first Monday of the (next) Agile
+#'     year. This value is converted to a date stamp that is used to
+#'     offset all other calculations for laying out the Agile year
+#'     and calendar. Should be presented as YYYY-mm-dd.}
+#'   \item{`increment_length`, `iteration_length`}{The duration in
+#'     weeks of an increment (a quarter) and an iteration (a sprint).}
+#'   \item{`ip_length`}{The duration of the Innovation and Planning
+#'     iteration (in weeks).}
+#' }
+#'
+#' The `agile_events` section is used to add markers on the Agile
+#' calendar that directly relate to the Agile cadence. This contrasts
+#' (a little) with the `markers` section that is/could be used for
+#' markers for (more personal) reminders about, for instance,
+#' deadlines. Both sections comprise any number of elements which
+#' then have one or more dates where to add markers. The name of
+#' each subsection is used for the marker label.
+#'
+#' @docType data
+#' @name agile_configuration
+NULL
