@@ -53,7 +53,7 @@ plot_markers <- function(cal, markers) {
                            mapping = ggplot2::aes(xintercept = dstamp),
                            color   = 'darkslateblue',
                            size    = 2.0),
-       ggrepel::geom_label_repel(dat               = d,
+       ggrepel::geom_label_repel(data              = d,
                                  mapping           = ggplot2::aes(label = event),
                                  colour            = 'darkslateblue',
                                  nudge_x           = 0.15,

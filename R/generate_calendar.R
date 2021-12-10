@@ -10,6 +10,19 @@
 #' @return A data frame / tibble with a row for each week and variables
 #'    useful for visualizing the calendar.
 #'
+#' \description{
+#'   \item{`dstamp`, `calendar_wk`}{Date of the Monday of a particular
+#'     week and the week number that belongs to that week (based on the
+#'     ISO standard).}
+#'   \item{`agile_wk`, `increment_wk`, `iteration_wk`}{Running week
+#'     number of, respectively, the Agile year, increment, and iteration.}
+#'   \item{`increment`, `iteration`}{Text labels for increments and
+#'     iterations.}
+#'   \item{`event`, `type`}{Markers to be mapped to weeks or dates in the
+#'     Agile calendar. Two types exist: markers related to Agile events
+#'     and rituals and (more personal) markers to, for instance, not
+#'     forget important deadlines.}}
+#'
 #' @importFrom dplyr "%>%"
 #'
 #' @export
@@ -37,7 +50,10 @@ generate_calendar <- function(cfg) {
                                      n_increments)) %>%
     dplyr::mutate(increment    = paste0('PI ', .cfg$year, '.', increment_no),
                   iteration    = paste0(increment, '.', iteration_no)) %>%
-    dplyr::mutate(iteration_no = factor(iteration_no, levels = c('ip', 1, 2, 3)))
+    dplyr::mutate(iteration_no = factor(iteration_no, levels = c('ip', 1, 2, 3))) %>%
+    dplyr::group_by(increment) %>%
+      dplyr::mutate(iteration_wk = c(0, rep(1:.cfg$iteration_length, n_iterations))) %>%
+    dplyr::ungroup()
 
   ## Construct temp. calendar with events and markers.
   tmp <- dplyr::bind_rows(cfg$agile_events, cfg$markers) %>%
