@@ -65,6 +65,8 @@ generate_calendar <- function(cfg) {
 
   ## The above procedure introduces the risk that events or markers are listed that
   ## belong to previous/next year and these will not get filled using the join.
+  ## TODO fix by iterating over three years when constructing the basic calendar.
+  ## Then remove fill() below.
   if (sum(is.na(tmp$agile_wk)) > 5) {
     warning(paste('Found more than five markers with dates not fitting Agile year',
                   .cfg$year, '\nApplying dirty fix!\n'))
