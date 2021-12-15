@@ -14,9 +14,9 @@ A data frame / tibble with a row for each week and variables
 useful for visualizing the calendar.
 
 \description{
-\item{\code{dstamp}, \code{calendar_wk}}{Date of the Monday of a particular
-week and the week number that belongs to that week (based on the
-ISO standard).}
+\item{\code{dstamp}, \code{calendar_yr}, \code{calendar_wk}}{Date of the Monday of
+a particular week and the week number that belongs to that week
+(based on the ISO standard).}
 \item{\code{agile_wk}, \code{increment_wk}, \code{iteration_wk}}{Running week
 number of, respectively, the Agile year, increment, and iteration.}
 \item{\code{increment}, \code{iteration}}{Text labels for increments and
