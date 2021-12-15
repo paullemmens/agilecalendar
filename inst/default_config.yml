@@ -18,13 +18,28 @@ agile_events:
     - 2022-09-01
     - 2022-12-01
   pirr:
-      
     - 2022-03-12
     - 2022-06-12
     - 2022-09-12
     - 2022-12-12
+  iteration planning:
+    - 2022-01-13
+    - 2022-02-10
+  vision meeting:
+    - 2022-03-14
+  program epic review:
+    - 2022-03-15
+  planning sign off:
+    - 2022-03-21
+
 markers:
-  RTE - speakers for vision:
+  RTE - Req. input VSRR:
+    - 2022-03-02
+  RTE - Submit VSRR:
+    - 2022-03-23
+  RTE - upload VSA:
+    - 2022-01-11
+  RTE - get vision speakers:
     - 2022-01-07
     - 2022-04-02
     - 2022-07-01
@@ -47,6 +62,4 @@ markers:
   RTE - business objectives:
     - 2021-12-21
   SM - plan next retro:
-  one off:
-      - 2022-03-11
     - 2022-01-15
