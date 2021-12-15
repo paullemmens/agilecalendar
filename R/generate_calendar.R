@@ -63,8 +63,17 @@ generate_calendar <- function(cfg) {
     dplyr::left_join(y = res %>% dplyr::select(-dstamp),
                      by = c('calendar_yr', 'calendar_wk'))
 
+  ## The above procedure introduces the risk that events or markers are listed that
+  ## belong to previous/next year and these will not get filled using the join.
+  if (sum(is.na(tmp$agile_wk)) > 5) {
+    warning(paste('Found more than five markers with dates not fitting Agile year',
+                  .cfg$year, '\nApplying dirty fix!\n'))
+  }
+
   ## Join markers and events into main calendar
-  cal <- dplyr::bind_rows(x = res, y = tmp)
+  cal <- dplyr::bind_rows(x = res, y = tmp) %>%
+    dplyr::arrange(dstamp) %>%
+    tidyr::fill(agile_wk:iteration_wk, .direction = 'downup')
 
   return(cal)
 }
