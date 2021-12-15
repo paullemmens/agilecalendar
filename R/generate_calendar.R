@@ -11,9 +11,9 @@
 #'    useful for visualizing the calendar.
 #'
 #' \description{
-#'   \item{`dstamp`, `calendar_wk`}{Date of the Monday of a particular
-#'     week and the week number that belongs to that week (based on the
-#'     ISO standard).}
+#'   \item{`dstamp`, `calendar_yr`, `calendar_wk`}{Date of the Monday of
+#'     a particular week and the week number that belongs to that week
+#'     (based on the ISO standard).}
 #'   \item{`agile_wk`, `increment_wk`, `iteration_wk`}{Running week
 #'     number of, respectively, the Agile year, increment, and iteration.}
 #'   \item{`increment`, `iteration`}{Text labels for increments and
@@ -37,6 +37,7 @@ generate_calendar <- function(cfg) {
   ## Construct basic calendar.
   res <- tibble::tibble(agile_wk = 1:52) %>%
     dplyr::mutate(dstamp       = lubridate::ymd(.cfg$year_start) + lubridate::weeks(0:51),
+                  calendar_yr  = lubridate::year(dstamp),
                   calendar_wk  = lubridate::isoweek(dstamp),
                   increment_wk = rep(1:.cfg$increment_length, n_increments),
                   increment_no = rep_len(rep.int(seq_len(n_increments),
@@ -57,9 +58,10 @@ generate_calendar <- function(cfg) {
 
   ## Construct temp. calendar with events and markers.
   tmp <- dplyr::bind_rows(cfg$agile_events, cfg$markers) %>%
-    dplyr::mutate(calendar_wk = lubridate::isoweek(dstamp)) %>%
+    dplyr::mutate(calendar_wk = lubridate::isoweek(dstamp),
+                  calendar_yr  = lubridate::year(dstamp)) %>%
     dplyr::left_join(y = res %>% dplyr::select(-dstamp),
-                     by = 'calendar_wk')
+                     by = c('calendar_yr', 'calendar_wk'))
 
   ## Join markers and events into main calendar
   cal <- dplyr::bind_rows(x = res, y = tmp)
