@@ -114,3 +114,18 @@ copy_default_config <- function(path) {
 #' @docType data
 #' @name agile_configuration
 NULL
+#' Check If List Is Nested
+#'
+#' @param l A list.
+#'
+#' @return Boolean whether `l` has nested lists.
+#'
+is_nested <- function(l) {
+  stopifnot(is.list(l))
+
+  for (i in l) {
+    if (is.list(l)) return(TRUE)
+  }
+
+  return(FALSE)
+}
