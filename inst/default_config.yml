@@ -37,3 +37,24 @@ markers:
     - increment_wk: 1
   RTE - nxt vision speakers:
     - increment_wk: 2
+  RTE - upl. VSA, PIRR, VSRR:
+    - 2022-03-31
+  RTE - req. VSA, PIRR, VSRR:
+    - 2022-03-02
+  SM - plan next increment:
+    - 2022-01-15
+    - 2022-03-25
+    - 2022-06-25
+    - 2022-09-25
+  SM - complete PIRR:
+    - 2022-03-01
+  SM - update team + certs:
+    - 2022-09-23
+  SM - check kpi dashboard:
+    - 2022-02-25
+  RTE - business objectives:
+    - 2021-12-21
+  SM - plan next retro:
+    - 2022-01-15
+  RTE - nxt IP week @IPM:
+    - 2022-01-14
