@@ -57,11 +57,25 @@ generate_calendar <- function(cfg) {
     dplyr::ungroup()
 
   ## Construct temp. calendar with events and markers.
-  tmp <- dplyr::bind_rows(cfg$agile_events, cfg$markers) %>%
+  tmp <- dplyr::bind_rows(cfg$agile_events, cfg$markers)
+  rec <- tmp %>% dplyr::filter(is.na(dstamp))
+  dated <- tmp %>% dplyr::filter(!is.na(dstamp))
+
+  dated <- dated %>%
+    dplyr::select(event, dstamp, type) %>%
     dplyr::mutate(calendar_wk = lubridate::isoweek(dstamp),
                   calendar_yr  = lubridate::year(dstamp)) %>%
     dplyr::left_join(y = res %>% dplyr::select(-dstamp),
                      by = c('calendar_yr', 'calendar_wk'))
+
+  rec <- rec %>%
+    dplyr::select(-dstamp) %>%
+    ## Ugly hack to suppress messages from dplyr::join() about missing by parameter.
+    ## This approach provides most flexibility in using various calendar variables
+    ## for recurring events/markers.
+    suppressMessages(dplyr::left_join(y = res))
+
+  tmp <- bind_rows(dated, rec)
 
   ## The above procedure introduces the risk that events or markers are listed that
   ## belong to previous/next year and these will not get filled using the join.

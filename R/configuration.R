@@ -14,8 +14,7 @@ parse_agile_events <- function(event_list) {
   d <- stringr::str_sub(deparse(substitute(event_list)), 5, -1)
 
   purrr::map2_dfr(event_list, names(event_list),
-                  ~ tibble::tibble(event = .y, dstamp = .x,
-                                   type = d)) %>%
+                  ~ create_marker_dfr(ev = .x, ev_name = .y, type = d)) %>%
     dplyr::mutate(dstamp = lubridate::ymd(dstamp))
 }
 
@@ -111,6 +110,59 @@ copy_default_config <- function(path) {
 #' then have one or more dates where to add markers. The name of
 #' each subsection is used for the marker label.
 #'
+#' The date where these markers need to be plotted can be expressed in
+#' two ways: as an absolute date or as a "relative" date expressed as,
+#' for instance, the *n*th week in the increment or iteration. See the
+#' default configuration for examples.
+#'
 #' @docType data
 #' @name agile_configuration
 NULL
+
+#' Create Marker Data Frame / Tibble
+#'
+#' The YAML configuration enables specify an absolute date as place for
+#' a marker as well as using a relative date/location, for instance,
+#' referring to the *n*'th week in the increment. This function takes
+#' care of the processing.
+#'
+#' @param ev One event from a list of events
+#' @param ev_name Name of `ev` in the top level object.
+#' @param ... Further parameters to use in creating tibble.
+#'
+#' @return A one-row tibble with either a dstamp column for an absolute
+#'    date or, for instance, an `increment_wk` column for a relative
+#'    date.
+#'
+#' @importFrom dplyr '%>%'
+#'
+create_marker_dfr <- function(ev, ev_name, ...) {
+
+  ## TODO: add check if ev has multiple elements/rows. Decide on whether
+  ## this should (not) occur.
+
+  if (is.list(ev) && is_nested(ev)) {
+    uev <- rlang::sym(names(unlist(ev)))
+    res <- tibble::tibble(event = ev_name, '{{ uev }}' := unlist(ev), ...)
+  } else {
+    res <- tibble::tibble(event = ev_name, dstamp = ev, ...)
+  }
+
+  return(res)
+}
+
+#' Check If List Is Nested
+#'
+#' @param l A list.
+#'
+#' @return Boolean whether `l` has nested lists.
+#'
+is_nested <- function(l) {
+  stopifnot(is.list(l))
+
+  for (i in l) {
+    if (is.list(l)) return(TRUE)
+  }
+
+  return(FALSE)
+}

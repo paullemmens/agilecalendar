@@ -33,33 +33,7 @@ agile_events:
     - 2022-03-21
 
 markers:
-  RTE - Req. input VSRR:
-    - 2022-03-02
-  RTE - Submit VSRR:
-    - 2022-03-23
-  RTE - upload VSA:
-    - 2022-01-11
-  RTE - get vision speakers:
-    - 2022-01-07
-    - 2022-04-02
-    - 2022-07-01
-    - 2022-10-02
-  SM - plan next increment:
-    - 2022-01-15
-    - 2022-03-25
-    - 2022-06-25
-    - 2022-09-25
-  SM - complete PIRR:
-    - 2022-03-01
-  SM - update team + certs:
-    - 2021-12-23
-    - 2022-03-23
-    - 2022-09-23
-    - 2022-09-23
-    - 2022-12-20
-  SM - check kpi dashboard:
-    - 2022-02-25
-  RTE - business objectives:
-    - 2021-12-21
-  SM - plan next retro:
-    - 2022-01-15
+  RTE - upl. VSRR, PIRR, VSA:
+    - increment_wk: 1
+  RTE - nxt vision speakers:
+    - increment_wk: 2
