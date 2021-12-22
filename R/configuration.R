@@ -110,6 +110,11 @@ copy_default_config <- function(path) {
 #' then have one or more dates where to add markers. The name of
 #' each subsection is used for the marker label.
 #'
+#' The date where these markers need to be plotted can be expressed in
+#' two ways: as an absolute date or as a "relative" date expressed as,
+#' for instance, the *n*th week in the increment or iteration. See the
+#' default configuration for examples.
+#'
 #' @docType data
 #' @name agile_configuration
 NULL

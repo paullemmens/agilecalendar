@@ -36,6 +36,11 @@ markers for (more personal) reminders about, for instance,
 deadlines. Both sections comprise any number of elements which
 then have one or more dates where to add markers. The name of
 each subsection is used for the marker label.
+
+The date where these markers need to be plotted can be expressed in
+two ways: as an absolute date or as a "relative" date expressed as,
+for instance, the \emph{n}th week in the increment or iteration. See the
+default configuration for examples.
 }
 \description{
 The Agile calendar is defined and constructed using the
