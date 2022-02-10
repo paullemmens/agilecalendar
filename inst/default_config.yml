@@ -39,3 +39,9 @@ markers:
     - increment_wk: 1
   SM plan next IP week:
     - increment_wk: 2
+  SM complete PIRR:
+    - increment_wk: 1
+  SM update team + certs:
+    - increment_wk: 8
+  SM update KPIs:
+    - iteration_wk: 4
