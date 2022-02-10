@@ -19,24 +19,23 @@ agile_events:
     - iteration_wk: 4
 
 markers:
-  RTE - upl. VSRR, PIRR, VSA:
+  PO update SIA:
     - 2022-02-15
+  PO update stakeholders:
     - 2022-01-30
+  PO update VSA:
     - increment_wk: 2
+  RTE vision speakers:
     - increment_wk: 2
+  RTE vision agenda:
     - increment_wk: 9
+  RTE upload VSA, PIRR, VSRR:
     - increment_wk: 6
+  RTE PI review template:
     - increment_wk: 10
+  RTE agenda IP week:
     - increment_wk: 11
+  SM plan sprint reviews:
     - increment_wk: 1
-  RTE - nxt vision speakers:
+  SM plan next IP week:
     - increment_wk: 2
-  RTE - upl. VSA, PIRR, VSRR:
-  RTE - req. VSA, PIRR, VSRR:
-  SM - plan next increment:
-  SM - complete PIRR:
-  SM - update team + certs:
-  SM - check kpi dashboard:
-  RTE - business objectives:
-  SM - plan next retro:
-  RTE - nxt IP week @IPM:
