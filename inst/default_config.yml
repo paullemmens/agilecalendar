@@ -7,33 +7,41 @@ configuration:
   ip_length: 1
 
 agile_events:
-  retrospective:
-    - 2022-02-28
-    - 2022-05-28
-    - 2022-08-28
-    - 2022-11-28
-  vsrr:
-    - 2022-03-01
-    - 2022-06-01
-    - 2022-09-01
-    - 2022-12-01
-  pirr:
-    - 2022-03-12
-    - 2022-06-12
-    - 2022-09-12
-    - 2022-12-12
-  iteration planning:
-    - 2022-01-13
-    - 2022-02-10
   vision meeting:
-    - 2022-03-14
-  program epic review:
-    - 2022-03-15
+    increment_wk: 1
+  review meetings:
+    increment_wk: 1
+  VS retrospective:
+    increment_wk: 1
   planning sign off:
-    - 2022-03-21
+    - increment_wk: 1
+  iteration planning:
+    - iteration_wk: 4
 
 markers:
-  RTE - upl. VSRR, PIRR, VSA:
-    - increment_wk: 1
-  RTE - nxt vision speakers:
+  PO update SIA:
+    - 2022-02-15
+  PO update stakeholders:
+    - 2022-01-30
+  PO update VSA:
     - increment_wk: 2
+  RTE vision speakers:
+    - increment_wk: 2
+  RTE vision agenda:
+    - increment_wk: 9
+  RTE upload VSA, PIRR, VSRR:
+    - increment_wk: 6
+  RTE PI review template:
+    - increment_wk: 10
+  RTE agenda IP week:
+    - increment_wk: 11
+  SM plan sprint reviews:
+    - increment_wk: 1
+  SM plan next IP week:
+    - increment_wk: 2
+  SM complete PIRR:
+    - increment_wk: 1
+  SM update team + certs:
+    - increment_wk: 8
+  SM update KPIs:
+    - iteration_wk: 4
