@@ -13,9 +13,15 @@
 parse_agile_events <- function(event_list) {
   d <- stringr::str_sub(deparse(substitute(event_list)), 5, -1)
 
-  purrr::map2_dfr(event_list, names(event_list),
-                  ~ create_marker_dfr(ev = .x, ev_name = .y, type = d)) %>%
-    dplyr::mutate(dstamp = lubridate::ymd(dstamp))
+  res <- purrr::map2_dfr(event_list, names(event_list),
+                  ~ create_marker_dfr(ev = .x, ev_name = .y, type = d))
+
+  if (!'dstamp' %in% names(res)) {
+    res <- res %>% dplyr::mutate(dstamp = NA_integer_)
+  }
+  res <- res %>% dplyr::mutate(dstamp = lubridate::ymd(dstamp))
+
+  return(res)
 }
 
 #' @title Load Configuration File
