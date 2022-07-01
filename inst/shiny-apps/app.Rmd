@@ -9,7 +9,6 @@ runtime: shiny
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.asp = 0.618)
 require(tidyverse)
 require(flexdashboard)
 require(ggrepel)
@@ -22,9 +21,10 @@ Sidebar {.sidebar data-width=300}
 ### Plot setup
 
 ```{r marker check boxes}
-checkboxInput('cadence_markers', 'Plot cadence markers', value = TRUE)
+checkboxInput('cadence_markers', 'Plot Agile events', value = TRUE)
 checkboxInput('personal_markers', 'Plot personal markers', value = TRUE)
 checkboxInput('today', 'Plot today marker', value = TRUE)
+checkboxInput('jitter', 'Jitter overlapping markers', value = TRUE)
 ```
 
 ### Role(s)
@@ -63,7 +63,8 @@ Viewer {.tabset}
 
 ```{r visual-calendar}
 renderPlot({
-  req(acc())
+  validate(need(acc(), message = 'Waiting to complete generating the calendar'))
+
   d <- isolate(acc())
   d_dodged <- d %>%
     group_by(increment, iteration) %>%
@@ -81,6 +82,7 @@ renderPlot({
   if (input$cadence_markers) p <- p + plot_markers(cal = cal_dodged, markers = 'agile_events')
   if (input$personal_markers) p <- p + plot_markers(cal = d_dodged, markers = 'markers')
   if (input$today) p <- p + today_marker()
+
   return(p)
 })
 ```
@@ -138,4 +140,13 @@ output$export <- downloadHandler(
     yaml::write_yaml(input$config, file = f)
   }
 )
+```
+
+Cal Table
+========
+
+```{r list cal}
+renderTable({
+  acc() %>% mutate(dstamp = format(dstamp, '%Y-%m-%d'))
+})
 ```
