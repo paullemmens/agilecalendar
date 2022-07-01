@@ -27,6 +27,19 @@ checkboxInput('personal_markers', 'Plot personal markers', value = TRUE)
 checkboxInput('today', 'Plot today marker', value = TRUE)
 ```
 
+### Role(s)
+
+```{r role select boxes}
+checkboxInput('role_po', 'Product owner', value = TRUE)
+checkboxInput('role_rte', 'Release train engineer', value = TRUE)
+checkboxInput('role_sm', 'Scrum master', value = TRUE)
+```
+
+```{r start with default config}
+actionButton('load_default', 'Show default config')
+```
+
+
 
 Viewer
 ========
@@ -51,9 +64,14 @@ Viewer {.tabset}
 ```{r visual-calendar}
 renderPlot({
   req(acc())
+  d <- isolate(acc())
   d_dodged <- d %>%
     group_by(increment, iteration) %>%
       mutate(dstamp = dstamp + seq(from = 0, by = lubridate::dhours(12), length.out = dplyr::n()))
+  if (!input$role_po) d <- d %>% filter(!grepl('^po', tolower(event)))
+  if (!input$role_rte) d <- d %>% filter(!grepl('^rte', tolower(event)))
+  if (!input$role_sm) d <- d %>% filter(!grepl('^sm', tolower(event)))
+  
   p <- plot_calendar(cal = acc())
 
   cal_dodged <- acc() %>%
