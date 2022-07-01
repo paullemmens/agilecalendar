@@ -56,12 +56,13 @@ plot_markers <- function(cal, markers) {
        ggrepel::geom_label_repel(data              = d,
                                  mapping           = ggplot2::aes(label = event),
                                  colour            = 'darkslateblue',
-                                 nudge_x           = 0.15,
-                                 nudge_y           = 1,
+                                 direction         = 'both',
+                                 nudge_x           = 0.3,
                                  box.padding       = 0.5,
-                                 segment.curvature = -0.1,
-                                 segment.ncp       = 3,
-                                 segment.angle     = 20,
+                                 segment.curvature = -0.00003,
+                                 segment.ncp       = 5,
+                                 segment.angle     = 50,
+                                 min.segment.length = 1,
                                  max.overlaps      = Inf)
       )
 }
