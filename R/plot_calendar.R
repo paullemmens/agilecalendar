@@ -17,8 +17,8 @@ plot_calendar <- function(cal) {
     ggplot2::ggplot(ggplot2::aes(x = dstamp, colour = forcats::as_factor(iteration_no), y = 1)) +
       ggplot2::geom_line(ggplot2::aes(group = 1), size = 6) +
       ggplot2::facet_wrap(~ increment, scales = 'free_x', ncol = 1) +
-      ggplot2::scale_x_date(date_breaks = '1 week', date_labels = '%V') +
       ggplot2::labs(x = 'Week number', y = '', colour = 'Iteration') +
+      ggplot2::scale_x_datetime(date_breaks = '1 week', date_labels = '%V') +
       ggplot2::theme_minimal() +
       ggplot2::theme(
         legend.position  = 'bottom',
