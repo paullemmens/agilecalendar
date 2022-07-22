@@ -52,7 +52,18 @@ cfg <- eventReactive(c(input$load_default, input$activate), {
 acc <- reactive({
   req(cfg())
 
-  generate_calendar(cfg = cfg())
+  res <- generate_calendar(cfg = cfg())
+  if (input$jitter) {
+    res <- res %>%
+      group_by(increment, iteration_wk) %>%
+        mutate(dstamp = if_else(is.na(type),
+                                dstamp,
+                                dstamp + seq(from = 0, by = lubridate::dhours(10),
+                                             length.out = dplyr::n()))) %>%
+      ungroup()
+  }
+
+  return(res)
 })
 ```
 
@@ -66,21 +77,14 @@ renderPlot({
   validate(need(acc(), message = 'Waiting to complete generating the calendar'))
 
   d <- isolate(acc())
-  d_dodged <- d %>%
-    group_by(increment, iteration) %>%
-      mutate(dstamp = dstamp + seq(from = 0, by = lubridate::dhours(12), length.out = dplyr::n()))
   if (!input$role_po) d <- d %>% filter(!grepl('^po', tolower(event)))
   if (!input$role_rte) d <- d %>% filter(!grepl('^rte', tolower(event)))
   if (!input$role_sm) d <- d %>% filter(!grepl('^sm', tolower(event)))
-  
-  p <- plot_calendar(cal = acc())
 
-  cal_dodged <- acc() %>%
-    group_by(increment, iteration) %>%
-      mutate(dstamp = dstamp + seq(from = 0, by = lubridate::dhours(12), length.out = dplyr::n()))
-  
-  if (input$cadence_markers) p <- p + plot_markers(cal = cal_dodged, markers = 'agile_events')
-  if (input$personal_markers) p <- p + plot_markers(cal = d_dodged, markers = 'markers')
+  p <- plot_calendar(cal = d)
+
+  if (input$cadence_markers) p <- p + plot_markers(cal = d, markers = 'agile_events')
+  if (input$personal_markers) p <- p + plot_markers(cal = d, markers = 'markers')
   if (input$today) p <- p + today_marker()
 
   return(p)
