@@ -36,7 +36,7 @@ generate_calendar <- function(cfg) {
 
   ## Construct basic calendar.
   res <- tibble::tibble(agile_wk = 1:52) %>%
-    dplyr::mutate(dstamp       = lubridate::ymd(.cfg$year_start) + lubridate::weeks(0:51),
+    dplyr::mutate(dstamp       = lubridate::ymd(.cfg$year_start) + lubridate::weeks(0:51) + lubridate::dhours(0.01),
                   calendar_yr  = lubridate::year(dstamp),
                   calendar_wk  = lubridate::isoweek(dstamp),
                   increment_wk = rep(1:.cfg$increment_length, n_increments),

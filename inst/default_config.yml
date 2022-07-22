@@ -9,20 +9,20 @@ configuration:
 agile_events:
   vision meeting:
     increment_wk: 1
-  review meetings:
+  review meeting:
     increment_wk: 1
   VS retrospective:
     increment_wk: 1
   planning sign off:
     - increment_wk: 1
-  iteration planning:
+  iteration planning: # check whether to split this into two for ip week and remainder
     - iteration_wk: 4
 
 markers:
   PO update SIA:
     - 2022-02-15
   PO update stakeholders:
-    - 2022-01-30
+    - 2021-12-23
   PO update VSA:
     - increment_wk: 2
   RTE vision speakers:
@@ -35,6 +35,10 @@ markers:
     - increment_wk: 10
   RTE agenda IP week:
     - increment_wk: 11
+  RTE create new VSRR:
+    - 2022-01-15
+  RTE send out review slides:
+    - increment_wk: 2
   SM plan sprint reviews:
     - increment_wk: 1
   SM plan next IP week:
@@ -44,4 +48,4 @@ markers:
   SM update team + certs:
     - increment_wk: 8
   SM update KPIs:
-    - iteration_wk: 4
+    - increment_wk: 9

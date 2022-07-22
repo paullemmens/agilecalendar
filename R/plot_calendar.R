@@ -17,14 +17,14 @@ plot_calendar <- function(cal) {
     ggplot2::ggplot(ggplot2::aes(x = dstamp, colour = forcats::as_factor(iteration_no), y = 1)) +
       ggplot2::geom_line(ggplot2::aes(group = 1), size = 6) +
       ggplot2::facet_wrap(~ increment, scales = 'free_x', ncol = 1) +
-      ggplot2::scale_x_date(date_breaks = '1 week', date_labels = '%V') +
-      ggplot2::labs(x = 'Week number', y = '', colour = 'Iteration') +
+      ggplot2::scale_x_datetime(date_breaks = '1 week', date_labels = '%V') +
+      ggplot2::labs(x = '\nCalendar week number', y = '', colour = 'Iteration') +
       ggplot2::theme_minimal() +
       ggplot2::theme(
         legend.position  = 'bottom',
-        text             = ggplot2::element_text(size    = 18),
-        axis.title.x     = ggplot2::element_text(vjust   = -0.2),
-        plot.caption     = ggplot2::element_text(size    = 11 * 0.8),
+        text             = ggplot2::element_text(size   = 18),
+        axis.title.x     = ggplot2::element_text(vjust  = -0.2),
+        plot.caption     = ggplot2::element_text(size   = 11 * 0.8),
         strip.background = ggplot2::element_rect(colour =  NA, fill =  NA),
         strip.text       = ggplot2::element_text(size   =  ggplot2::rel(1.1)),
         panel.grid       = ggplot2::element_blank(),
@@ -56,12 +56,13 @@ plot_markers <- function(cal, markers) {
        ggrepel::geom_label_repel(data              = d,
                                  mapping           = ggplot2::aes(label = event),
                                  colour            = 'darkslateblue',
-                                 nudge_x           = 0.15,
-                                 nudge_y           = 1,
+                                 direction         = 'both',
+                                 nudge_x           = 0.3,
                                  box.padding       = 0.5,
-                                 segment.curvature = -0.1,
-                                 segment.ncp       = 3,
-                                 segment.angle     = 20,
+                                 segment.curvature = -0.00003,
+                                 segment.ncp       = 5,
+                                 segment.angle     = 50,
+                                 min.segment.length = 1,
                                  max.overlaps      = Inf)
       )
 }
@@ -75,7 +76,7 @@ plot_markers <- function(cal, markers) {
 #'    existing ggplot object.
 #'
 today_marker <- function() {
-  list(ggplot2::geom_vline(data = tibble::tibble(dstamp = lubridate::as_date(Sys.time())),
+  list(ggplot2::geom_vline(data = tibble::tibble(dstamp = lubridate::as_datetime(Sys.time())),
                            mapping = ggplot2::aes(xintercept = dstamp),
                            color = 'red', size = 2.0))
 }
