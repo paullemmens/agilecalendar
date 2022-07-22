@@ -76,7 +76,7 @@ plot_markers <- function(cal, markers) {
 #'    existing ggplot object.
 #'
 today_marker <- function() {
-  list(ggplot2::geom_vline(data = tibble::tibble(dstamp = lubridate::as_date(Sys.time())),
+  list(ggplot2::geom_vline(data = tibble::tibble(dstamp = lubridate::as_datetime(Sys.time())),
                            mapping = ggplot2::aes(xintercept = dstamp),
                            color = 'red', size = 2.0))
 }
