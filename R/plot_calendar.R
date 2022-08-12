@@ -52,6 +52,9 @@ plot_markers <- function(cal, markers) {
   list(ggplot2::geom_vline(data    = d,
                            mapping = ggplot2::aes(xintercept = dstamp, color = type),
                            size    = 2.0,
+                           ## FIXME: while this makes the legend better than having the
+                           ## ugly letters, it now says that the markers are part of the
+                           ## iteration legend.
                            show.legend       = FALSE),
        ggrepel::geom_label_repel(data              = d,
                                  mapping           = ggplot2::aes(label = event,
