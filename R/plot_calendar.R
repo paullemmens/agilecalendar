@@ -8,28 +8,28 @@
 #'
 #' @return A ggplot object
 #'
-#' @importFrom dplyr "%>%"
-#'
 #' @export
 plot_calendar <- function(cal) {
   ## FIXME presumes cal is correctly formatted.
-  cal %>%
-    ggplot2::ggplot(ggplot2::aes(x = dstamp, colour = forcats::as_factor(iteration_no), y = 1)) +
+  ggplot2::ggplot(data    = cal,
+                  mapping = ggplot2::aes(x = dstamp,
+                                         colour = forcats::as_factor(iteration_no),
+                                         y = 1)) +
       ggplot2::geom_line(ggplot2::aes(group = 1), size = 6) +
       ggplot2::facet_wrap(~ increment, scales = 'free_x', ncol = 1) +
       ggplot2::scale_x_datetime(date_breaks = '1 week', date_labels = '%V') +
       ggplot2::labs(x = '\nCalendar week number', y = '', colour = 'Iteration') +
       ggplot2::theme_minimal() +
       ggplot2::theme(
-        legend.position  = 'bottom',
-        text             = ggplot2::element_text(size   = 18),
-        axis.title.x     = ggplot2::element_text(vjust  = -0.2),
-        plot.caption     = ggplot2::element_text(size   = 11 * 0.8),
-        strip.background = ggplot2::element_rect(colour =  NA, fill =  NA),
-        strip.text       = ggplot2::element_text(size   =  ggplot2::rel(1.1)),
-        panel.grid       = ggplot2::element_blank(),
-        axis.text.y      = ggplot2::element_blank(),
-        axis.ticks.y     = ggplot2::element_blank()
+      legend.position  = 'bottom',
+      text             = ggplot2::element_text(size   = 18),
+      axis.title.x     = ggplot2::element_text(vjust  = -0.2),
+      plot.caption     = ggplot2::element_text(size   = 11 * 0.8),
+      strip.background = ggplot2::element_rect(colour =  NA, fill =  NA),
+      strip.text       = ggplot2::element_text(size   =  ggplot2::rel(1.1)),
+      panel.grid       = ggplot2::element_blank(),
+      axis.text.y      = ggplot2::element_blank(),
+      axis.ticks.y     = ggplot2::element_blank()
       )
 }
 
