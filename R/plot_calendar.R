@@ -50,12 +50,12 @@ plot_markers <- function(cal, markers) {
     dplyr::filter(!is.na(event), type == markers)
 
   list(ggplot2::geom_vline(data    = d,
-                           mapping = ggplot2::aes(xintercept = dstamp),
-                           color   = 'darkslateblue',
-                           size    = 2.0),
+                           mapping = ggplot2::aes(xintercept = dstamp, color = type),
+                           size    = 2.0,
+                           show.legend       = FALSE),
        ggrepel::geom_label_repel(data              = d,
-                                 mapping           = ggplot2::aes(label = event),
-                                 colour            = 'darkslateblue',
+                                 mapping           = ggplot2::aes(label = event,
+                                                                  color = type),
                                  direction         = 'both',
                                  nudge_x           = 0.3,
                                  box.padding       = 0.5,
@@ -63,7 +63,8 @@ plot_markers <- function(cal, markers) {
                                  segment.ncp       = 5,
                                  segment.angle     = 50,
                                  min.segment.length = 1,
-                                 max.overlaps      = Inf)
+                                 max.overlaps      = Inf,
+                                 show.legend       = FALSE)
       )
 }
 
