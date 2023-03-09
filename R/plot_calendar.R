@@ -30,7 +30,11 @@ plot_calendar <- function(cal) {
       panel.grid       = ggplot2::element_blank(),
       axis.text.y      = ggplot2::element_blank(),
       axis.ticks.y     = ggplot2::element_blank()
-      )
+      ) +
+    ## TODO: this removes the colour legend completely but I would prefer to have
+    ## it for just the sprint numbers. However, plot_markers() adds a colour
+    ## mapping that I haven't been able to remove from the legend yet.
+    guides(colour = 'none')
 }
 
 #' @title Mark Agile Cadence Related Events
@@ -51,11 +55,7 @@ plot_markers <- function(cal, markers) {
 
   list(ggplot2::geom_vline(data    = d,
                            mapping = ggplot2::aes(xintercept = dstamp, color = type),
-                           size    = 2.0,
-                           ## FIXME: while this makes the legend better than having the
-                           ## ugly letters, it now says that the markers are part of the
-                           ## iteration legend.
-                           show.legend       = FALSE),
+                           size    = 2.0),
        ggrepel::geom_label_repel(data              = d,
                                  mapping           = ggplot2::aes(label = event,
                                                                   color = type),
